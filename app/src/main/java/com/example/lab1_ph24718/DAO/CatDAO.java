@@ -29,6 +29,33 @@ public class CatDAO {
         return kq;
     }
 
+    public boolean updateRow(CatDTO objCat) {
+        ContentValues values = new ContentValues();
+        values.put("name", objCat.getName());
+
+        int result = db.update("tb_cat", values, "id = ?", new String[]{String.valueOf(objCat.getId())});
+        if (result > 0) {
+            Log.d("CatDAO", "updateRow: Cập nhật thành công, id = " + objCat.getId());
+            return true;
+        } else {
+            Log.d("CatDAO", "updateRow: Không tìm thấy dòng có id = " + objCat.getId());
+            return false;
+        }
+    }
+
+    public boolean deleteRow(CatDTO objCat) {
+        int result = db.delete("tb_cat", "id = ?", new String[]{String.valueOf(objCat.getId())});
+        if (result > 0) {
+            Log.d("CatDAO", "deleteRow: Đã xóa dòng có id = " + objCat.getId());
+            return true;
+        } else {
+            Log.d("CatDAO", "deleteRow: Không tìm thấy dòng có id = " + objCat.getId());
+            return false;
+        }
+    }
+
+
+
     // ham lay danh sach
     public ArrayList<CatDTO> getList(){
         ArrayList<CatDTO> listCat = new ArrayList<>();

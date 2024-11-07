@@ -32,6 +32,22 @@ public class ProductDAO {
         return kq;
     }
 
+    public boolean updateProduct(ProductDTO objProduct) {
+        ContentValues values = new ContentValues();
+        values.put("name", objProduct.getName());
+        values.put("price",objProduct.getPrice());
+        values.put("id_cat",objProduct.getId_cat());
+
+        int kq = db.update("tb_product", values, "id = ?", new String[]{objProduct.getId()+""});
+       return kq > 0;
+    }
+
+    public boolean deleteProduct(ProductDTO objProduct) {
+        int kq = db.delete("tb_product" ,"id = ? ", new String[]{objProduct.getId()+""});
+        return kq > 0;
+    }
+
+
     // ham lay danh sach
     public ArrayList<ProductDTO> getList(){
         ArrayList<ProductDTO> listProduct = new ArrayList<>();
